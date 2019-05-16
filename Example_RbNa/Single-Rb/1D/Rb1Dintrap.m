@@ -2,6 +2,7 @@
 
 %% GROUND STATE COMPUTATION FOR RB BEC IN 1D HARMONIC TRAP
 
+clear all;
 %% -----------------------------------------------------------
 % Setting the data
 
@@ -12,7 +13,7 @@
 Computation = 'Ground';
 Ncomponents = 1;
 Type = 'BESP';
-Deltat = 1e-3;
+Deltat = 5e-2;
 Stop_time = [];
 Stop_crit = {'Energy',1e-6};
 Method = Method_Var1d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
@@ -21,14 +22,29 @@ xmax = 16;
 Nx = 2^10+1;
 Geometry1D = Geometry1D_Var1d(xmin,xmax,Nx);
 
+
 %% Setting the physical problem
 Delta = 0.5;
-Beta = 1;
-Beta_11=con.Beta_11;
-Beta_22=con.Beta_22;
-Beta_12=con.Beta_12;
-Beta_21=con.Beta_21;
-Physics3D = Physics3D_Var3d(Method, Delta, Beta);
-Physics3D = Dispersion_Var3d(Method, Physics3D,[],dispersion3D);
-Physics3D = Potential_Var3d(Method, Physics3D, con.potential);
-Physics3D = Nonlinearity_Var3d(Method, Physics3D, Nonlinearity3D(Beta_11,Beta_22,Beta_12,Beta_21),[],Nonlinearity3D_Energy(Beta_11,Beta_22,Beta_12,Beta_21));
+Beta = 250;
+Physics1D = Physics1D_Var1d(Method, Delta, Beta);
+Physics1D = Dispersion_Var1d(Method, Physics1D);
+Physics1D = Potential_Var1d(Method, Physics1D, @(X) X.^2/2 + 25*sin(X*pi/4).^2);
+Physics1D = Nonlinearity_Var1d(Method, Physics1D);
+
+%% Setting the initial data
+InitialData_Choice = 1;
+Phi_0 = InitialData_Var1d(Method, Geometry1D, Physics1D, InitialData_Choice);
+
+%% Setting informations and outputs
+save = 0;
+Outputs = OutputsINI_Var1d(Method, save);
+Printing = 1;
+Evo = 15;
+Draw = 1;
+Print = Print_Var1d(Printing,Evo,Draw);
+
+%-----------------------------------------------------------
+% Launching simulation
+%-----------------------------------------------------------
+
+[Phi, Outputs] = GPELab1d(Phi_0,Method,Geometry1D,Physics1D,Outputs,[],Print);

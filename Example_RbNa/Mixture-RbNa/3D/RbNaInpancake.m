@@ -24,24 +24,34 @@ NRb = 200000;
 %% scattering length
 a11 = 54.5*a0;
 a22 = 100.4*a0;
-a12 = -37*a0;
+a12 = 30*a0;
 
 %% set trap potential parameters
-omgxNa=2*pi*10;
-omgxRb=2*pi*10;
+omgxNa=2*pi*21;
+omgyNa=2*pi*120;
+omgzNa=2*pi*21;
+omgxRb=2*pi*17.5;
+omgyRb=2*pi*90;
+omgzRb=2*pi*17.5;
 
 %% set characteristic parameters
-omgmbar = (omgxNa*omgxRb)^(1/2);
+omgmbar = (omgxNa*omgyNa*omgzNa*omgxRb*omgyRb*omgzRb)^(1/6);
 abar = sqrt(hbar/mu/omgmbar);
 tbar = 1/omgmbar;
 
 %% Set trap potential
-vx1 = 1/2*mNa/mu*omgxNa^2/omgmbar^2;
-vx2 = 1/2*mRb/mu*omgxRb^2/omgmbar^2;
+vx1=1/2*mNa/mu*omgxNa^2/omgmbar^2;
+vy1=1/2*mNa/mu*omgyNa^2/omgmbar^2;
+gy1=mNa*grav/sqrt(hbar*omgmbar^3*mu);
+vz1=1/2*mNa/mu*omgzNa^2/omgmbar^2;
+vx2=1/2*mRb/mu*omgxRb^2/omgmbar^2;
+vy2=1/2*mRb/mu*omgyRb^2/omgmbar^2;
+gy2=mRb*grav/sqrt(hbar*omgmbar^3*mu);
+vz2=1/2*mRb/mu*omgzRb^2/omgmbar^2;
 
-pol = cell(2);
-pol{1,1} = @(x) vx1*x.^2;
-pol{2,2} = @(x) vx2*x.^2;
+pol=cell(2);
+pol{1,1}=@(x,y,z) vx1*x.^2+vy1*(y).^2+vz1*z.^2;
+pol{2,2}=@(x,y,z) vx2*x.^2+vy2*(y+gy2/2/vy2-gy1/2/vy1).^2+vz2*z.^2;
 
 %% -----------------------------------------------------------
 
@@ -49,14 +59,20 @@ pol{2,2} = @(x) vx2*x.^2;
 Computation = 'Ground';
 Ncomponents = 2;
 Type = 'BESP';
-Deltat = 1e-4;
+Deltat = 5e-4;
 Stop_time = [];
 Stop_crit = {'Energy',1e-3};
-Method = Method_Var1d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
-xmin = -10;
-xmax = 10;
-Nx = 2^7+1;
-Geometry1D = Geometry1D_Var1d(xmin,xmax,Nx);
+Method = Method_Var3d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
+xmin = -5;
+xmax = 5;
+ymin = -5;
+ymax = 5;
+zmin = -5;
+zmax = 5;
+Nx = 2^5+1;
+Ny = 2^5+1;
+Nz = 2^5+1;
+Geometry3D = Geometry3D_Var3d(xmin,xmax,ymin,ymax,zmin,zmax,Nx,Ny,Nz);
 
 %% Setting the physical problem
 Delta = 0.5;
@@ -71,20 +87,20 @@ Beta_22=NRb*4*pi*(mu/mRb)*(a22/abar);
 
 Beta_coupled = [Beta_11, Beta_12; Beta_21, Beta_22];
 
-Physics1D = Physics1D_Var1d(Method, Delta, Beta);
-Physics1D = Dispersion_Var1d(Method, Physics1D, [], Dispersion1D);
-Physics1D = Potential_Var1d(Method, Physics1D, pol);
-Physics1D = Nonlinearity_Var1d(Method, Physics1D, Coupled_Cubic1D(Beta_coupled),[],Coupled_Cubic_energy1D(Beta_coupled));
+Physics3D = Physics3D_Var3d(Method, Delta, Beta);
+Physics3D = Dispersion_Var3d(Method, Physics3D, [], Dispersion3D);
+Physics3D = Potential_Var3d(Method, Physics3D, pol);
+Physics3D = Nonlinearity_Var3d(Method, Physics3D, Coupled_Cubic3D(Beta_coupled),[],Coupled_Cubic_energy3D(Beta_coupled));
 
 %% Setting the initial data
 InitialData_Choice = 2;
-Phi_0 = InitialData_Var1d(Method, Geometry1D, Physics1D, InitialData_Choice);
+Phi_0 = InitialData_Var3d(Method, Geometry3D, Physics3D, InitialData_Choice);
 
 %% Setting informations and outputs
 save = 1;
 Outputs = OutputsINI_Var1d(Method, save);
 Printing = 1;
-Evo = 50;
+Evo = 3;
 Draw = 1;
 Print = Print_Var1d(Printing,Evo,Draw);
 
@@ -92,4 +108,4 @@ Print = Print_Var1d(Printing,Evo,Draw);
 % Launching simulation
 %-----------------------------------------------------------
 
-[Phi, Outputs] = GPELab1d(Phi_0,Method,Geometry1D,Physics1D,Outputs,[],Print);
+[Phi, Outputs] = GPELab3d(Phi_0,Method,Geometry3D,Physics3D,Outputs,[],Print);

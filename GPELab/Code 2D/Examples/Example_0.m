@@ -13,26 +13,24 @@ Ncomponents = 1;
 Type = 'BESP';
 Deltat = 1e-2;
 Stop_time = [];
-Stop_crit = {'MaxNorm',1e-4};
+Stop_crit = {'MaxNorm',1e-6};
 Method = Method_Var2d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
-xmin = -10;
-xmax = 10;
-ymin = -10;
-ymax = 10;
-Nx = 2^7+1;
-Ny = 2^7+1;
+xmin = -15;
+xmax = 15;
+ymin = -15;
+ymax = 15;
+Nx = 2^8+1;
+Ny = 2^8+1;
 Geometry2D = Geometry2D_Var2d(xmin,xmax,ymin,ymax,Nx,Ny);
 
 %% Setting the physical problem
 Delta = 0.5;
-Beta = 100;
-Omega = 0.7;
-Physics2D = Physics2D_Var2d(Method, Delta, Beta, Omega);
-Physics2D = Dispersion_Var2d(Method, Physics2D);
-Physics2D = Potential_Var2d(Method, Physics2D);
+Beta = 1000;
+Kappa = 100;
+Optical_Potential=@(x,y)(1/2)*(x.^2+y.^2)+Kappa*(sin(pi*x/4).^2+sin(pi*y/4).^2);
+Physics2D = Physics2D_Var2d(Method, Delta, Beta);
+Physics2D = Potential_Var2d(Method, Physics2D,Optical_Potential);
 Physics2D = Nonlinearity_Var2d(Method, Physics2D);
-Physics2D = Gradientx_Var2d(Method, Physics2D);
-Physics2D = Gradienty_Var2d(Method, Physics2D);
 
 %% Setting the initial data
 InitialData_Choice = 2;
@@ -41,7 +39,7 @@ Phi_0 = InitialData_Var2d(Method, Geometry2D, Physics2D, InitialData_Choice);
 %% Setting informations and outputs
 Outputs = OutputsINI_Var2d(Method);
 Printing = 1;
-Evo = 50;
+Evo = 15;
 Draw = 1;
 Print = Print_Var2d(Printing,Evo,Draw);
 

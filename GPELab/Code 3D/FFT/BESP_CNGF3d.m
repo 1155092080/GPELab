@@ -58,22 +58,22 @@ while (Method.EvolutionCriterion > Method.Stop_crit{2}*Method.Deltat) && (Method
         [FFTPhi,flag, relres, iter, resvec] = Local_Full_BESP_solution3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D); % Computation of the ground state using the BESP-CNFG method on a single step of time
         Outputs.iteration_vec(Method.Iterations) = size(resvec,1); % Storing the total number of GMRES iterations at the iteration-th iteration of the Gradient Flow
 
-    %% Normalization of the ground states
-    if strcmp(Method.Normalization,'Multi')
-    Global_L2norm = 0;
-    for n = 1:Method.Ncomponents
-        Global_L2norm = Global_L2norm + L2_norm3d(FFTPhi{n},FFTGeometry3D)^2; % Computing the norm of each wave function
-    end
-    for n = 1:Method.Ncomponents
-        FFTPhi{n} = FFTPhi{n}/sqrt(Global_L2norm)*sqrt(Method.NParticles(1)); % Normalization of each wave function
-        Method.LocalEvol(n) = max(max(max(abs(FFTPhi{n}-FFTPhi_tmp{n})))); % Computing the local evolution of each wave function
-    end
-    elseif strcmp(Method.Normalization,'Single')
-    for n = 1:Method.Ncomponents
-        FFTPhi{n} = FFTPhi{n}/L2_norm3d(FFTPhi{n},FFTGeometry3D)*sqrt(Method.NParticles(n)); % Normalization of each wave function
-        Method.LocalEvol(n) = max(max(max(abs(FFTPhi{n}-FFTPhi_tmp{n})))); % Computing the local evolution of each wave function
-    end
-    end
+        %% Normalization of the ground states
+        if strcmp(Method.Normalization,'Multi')
+            Global_L2norm = 0;
+            for n = 1:Method.Ncomponents
+                Global_L2norm = Global_L2norm + L2_norm3d(FFTPhi{n},FFTGeometry3D)^2; % Computing the norm of each wave function
+            end
+            for n = 1:Method.Ncomponents
+                FFTPhi{n} = FFTPhi{n}/sqrt(Global_L2norm)*sqrt(Method.NParticles(1)); % Normalization of each wave function
+                Method.LocalEvol(n) = max(max(max(abs(FFTPhi{n}-FFTPhi_tmp{n})))); % Computing the local evolution of each wave function
+            end
+        elseif strcmp(Method.Normalization,'Single')
+            for n = 1:Method.Ncomponents
+                FFTPhi{n} = FFTPhi{n}/L2_norm3d(FFTPhi{n},FFTGeometry3D)*sqrt(Method.NParticles(n)); % Normalization of each wave function
+                Method.LocalEvol(n) = max(max(max(abs(FFTPhi{n}-FFTPhi_tmp{n})))); % Computing the local evolution of each wave function
+            end
+        end
     
     %% Updating CPUtime and evolution criterions
     if strcmp(Method.Stop_crit{1},'MaxNorm')
