@@ -18,21 +18,21 @@ mRb = 87*AMU;
 mu = mNa*mRb/(mNa+mRb);
 
 %% atom numbers
-NNa =58000;
-NRb = 30000;
+NNa =50000;
+NRb = 50000;
 
 %% scattering length
 a11 = 54.5*a0;
 a22 = 100.4*a0;
-a12 = 66.7*a0*0;
+a12 = -30*a0;
 
 %% set trap potential parameters
-omgxNa=2*pi*280;
-omgyNa=2*pi*280;
-omgzNa=2*pi*140;
-omgxRb=2*pi*240;
-omgyRb=2*pi*240;
-omgzRb=2*pi*120;
+omgxNa=2*pi*40;
+omgyNa=2*pi*90;
+omgzNa=2*pi*40;
+omgxRb=2*pi*40;
+omgyRb=2*pi*90;
+omgzRb=2*pi*40;
 
 %% set characteristic parameters
 omgmbar = (omgxNa*omgyNa*omgzNa*omgxRb*omgyRb*omgzRb)^(1/6);
@@ -59,19 +59,19 @@ pol{2,2}=@(x,y,z) vx2*x.^2+vy2*(y+gy2/2/vy2-gy1/2/vy1).^2+vz2*z.^2;
 Computation = 'Ground';
 Ncomponents = 2;
 Type = 'BESP';
-Deltat = 1e-3;
+Deltat = 1e-4;
 Stop_time = [];
 Stop_crit = {'Energy',1e-6};
 Method = Method_Var3d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
-xmin = -7;
-xmax = 7;
-ymin = -7;
-ymax = 7;
-zmin = -7;
-zmax = 7;
-Nx = 2^6+1;
-Ny = 2^6+1;
-Nz = 2^6+1;
+xmin = -8;
+xmax = 8;
+ymin = -3;
+ymax = 3;
+zmin = -8;
+zmax = 8;
+Nx = 2^5+1;
+Ny = 2^5+1;
+Nz = 2^5+1;
 Geometry3D = Geometry3D_Var3d(xmin,xmax,ymin,ymax,zmin,zmax,Nx,Ny,Nz);
 
 %% Setting the physical problem
@@ -100,7 +100,7 @@ Phi_0 = InitialData_Var3d(Method, Geometry3D, Physics3D, InitialData_Choice);
 save = 1;
 Outputs = OutputsINI_Var3d(Method, save);
 Printing = 1;
-Evo = 5;
+Evo = 3;
 Draw = 1;
 Print = Print_Var3d(Printing,Evo,Draw);
 
