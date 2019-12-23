@@ -36,4 +36,4 @@ Figure.x = 'x';
 Figure.y = 'y';
 Figure.z = 'z';
 
-Figure.color = 'blue';
+Figure.color = 'yellow';

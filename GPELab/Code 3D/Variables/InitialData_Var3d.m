@@ -5,7 +5,11 @@
 %%          Physics3D: Structure containing variables concerning the physics of the problem in 3D (structure) (see Physics3D_Var3d.m)
 %% INPUTS(OPTIONAL):
 %%          InitialData_Choice: Variable containing the choice between type of computations for the initial data (double, Default: 1)
-%%          (Must either be: 1 to compute directly a centered gaussian, 2 to compute directly the Thomas-Fermi approximation or 3 to compute the initial data using the CNSP-CNFG scheme)
+%%          (Must either be: 
+%%          1 to compute directly a centered gaussian, 
+%%          2 to compute directly the Thomas-Fermi approximation or 
+%%          3 to compute the initial data using the CNSP-CNFG scheme)
+%%          4 to compute the initial data using given size of centered gaussian
 %%          X0,Y0,Z0: Coordinates of the center of Gaussians or Thomas-Fermi approximation (vector or double, Default: 0)
 %%          gamma_x,gamma_y,gamma_z:Parameters for the centered gaussian (double, Default: 1) (see GaussianInitialData3d.m)
 %% OUTPUT:
@@ -198,5 +202,11 @@ Phi_0 = cell(1,Method.Ncomponents); % Initialization of the initial data
         % FOR each component
         for n = 1:Method.Ncomponents
             Phi_0{n} = Phi_0{n}/L2_norm3d(Phi_0{n},Geometry3D); %Normalization of the initial function   
+        end
+    elseif (InitialData_Choice == 4)
+        %FOR each component
+        for n = 1:Method.Ncomponents
+            Phi_0{n} = GaussianInitialData3d(Geometry3D, Physics3D, gamma_x,gamma_y,gamma_z, X0(n), Y0(n), Z0(n)); % Computing the centered gaussian
+            Phi_0{n} = Phi_0{n}/L2_norm3d(Phi_0{n},Geometry3D); %Normalization of the initial function 
         end
     end

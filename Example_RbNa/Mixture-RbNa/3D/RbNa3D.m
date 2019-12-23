@@ -90,8 +90,8 @@ Beta_coupled = [Beta_11, Beta_12; Beta_21, Beta_22];
 Physics3D = Physics3D_Var3d(Method, Delta, Beta);
 Physics3D = Dispersion_Var3d(Method, Physics3D, [], Dispersion3D);
 Physics3D = Potential_Var3d(Method, Physics3D, pol);
-Physics3D = Nonlinearity_Var3d(Method, Physics3D, Coupled_Cubic3D(Beta_coupled),[],Coupled_Cubic_energy3D(Beta_coupled));
-
+Physics3D = Nonlinearity_Var3d(Method, Physics3D, Coupled_Cubic3D(Beta_coupled));
+%Coupled_Cubic_energy3D(Beta_coupled)
 %% Setting the initial data
 InitialData_Choice = 2;
 Phi_0 = InitialData_Var3d(Method, Geometry3D, Physics3D, InitialData_Choice);
