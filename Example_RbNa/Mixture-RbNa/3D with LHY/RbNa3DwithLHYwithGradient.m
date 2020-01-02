@@ -4,7 +4,10 @@
 clear all;
 %% Setting the data
 %% Constants
-grav=9.8; % For usual gravitation
+%grav=9.8; % For usual gravitation
+%grav = 0; % For free falling
+g1 =0;
+g2 = - g1 * 23/87;
 hbar = 6.62606896E-34/2/pi;
 epsilon0 = 8.854187817E-12; 
 me = 9.10938215E-31;
@@ -42,23 +45,23 @@ tbar = 1/omgmbar;
 
 %% Set trap potential
 vx1=1/2*mNa/mu*omgxNa^2/omgmbar^2;
-vy1=1/2*mNa/mu*omgyNa^2/omgmbar^2;
-gy1=mNa*grav/sqrt(hbar*omgmbar^3*mu);
+%vy1=1/2*mNa/mu*omgyNa^2/omgmbar^2;
+%gy1=mNa*grav/sqrt(hbar*omgmbar^3*mu);
 %gy1=mNa*g1/sqrt(hbar*omgmbar^3*mu);
 vz1=1/2*mNa/mu*omgzNa^2/omgmbar^2;
 vx2=1/2*mRb/mu*omgxRb^2/omgmbar^2;
-vy2=1/2*mRb/mu*omgyRb^2/omgmbar^2;
-gy2=mRb*grav/sqrt(hbar*omgmbar^3*mu);
+%vy2=1/2*mRb/mu*omgyRb^2/omgmbar^2;
+%gy2=mRb*grav/sqrt(hbar*omgmbar^3*mu);
 %gy2=mRb*g2/sqrt(hbar*omgmbar^3*mu);
 vz2=1/2*mRb/mu*omgzRb^2/omgmbar^2;
 
-%grad1 = g1*mNa/sqrt(hbar*mu*(omgmbar^3));
-%grad2 = g2*mRb/sqrt(hbar*mu*(omgmbar^3));
+grad1 = g1*mNa/sqrt(hbar*mu*(omgmbar^3));
+grad2 = g2*mRb/sqrt(hbar*mu*(omgmbar^3));
 
 pol=cell(2);
-pol{1,1}=@(x,y,z) vx1*x.^2+ vy1*y.^2 +vz1*z.^2;
-pol{2,2}=@(x,y,z) vx2*x.^2+vy2*(y+gy2/2/vy2-gy1/2/vy1).^2+vz2*z.^2;
-%pol{2,2}=@(x,y,z) vx2*x.^2+ grad2 * y +vz2*z.^2;
+pol{1,1}=@(x,y,z) vx1*x.^2+ grad1 * y +vz1*z.^2;
+%pol{2,2}=@(x,y,z) vx2*x.^2+vy2*(y+gy2/2/vy2-gy1/2/vy1).^2+vz2*z.^2;
+pol{2,2}=@(x,y,z) vx2*x.^2+ grad2 * y +vz2*z.^2;
 
 %% -----------------------------------------------------------
 
@@ -69,7 +72,7 @@ Ncomponents = 2;
 Type = 'BESP';
 Deltat = 1e-3;
 Stop_time = [];
-Stop_crit = {'Energy',1e-3};
+Stop_crit = {'Energy',1e-4};
 Method = Method_Var3d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
 
 %Setting Geometry
