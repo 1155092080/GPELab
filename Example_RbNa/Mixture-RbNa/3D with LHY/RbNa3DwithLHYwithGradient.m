@@ -6,7 +6,7 @@ clear all;
 %% Constants
 %grav=9.8; % For usual gravitation
 %grav = 0; % For free falling
-g1 =0;
+g1 = 0.2;
 g2 = - g1 * 23/87;
 hbar = 6.62606896E-34/2/pi;
 epsilon0 = 8.854187817E-12; 
@@ -21,8 +21,8 @@ mRb = 87*AMU;
 mu = mNa*mRb/(mNa+mRb);
 
 %% atom numbers
-NNa =500000;
-NRb = 500000;
+NNa =100000;
+NRb = 140000;
 
 %% scattering length
 a11 = 54.5*a0;
@@ -72,11 +72,11 @@ Ncomponents = 2;
 Type = 'BESP';
 Deltat = 1e-3;
 Stop_time = [];
-Stop_crit = {'Energy',1e-4};
+Stop_crit = {'Energy',1e-2};
 Method = Method_Var3d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
 
 %Setting Geometry
-limit = 5;
+limit = 4.5;
 xmin = -limit;
 xmax = limit;
 ymin = -limit;

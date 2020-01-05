@@ -19,7 +19,7 @@ mu = mNa*mRb/(mNa+mRb);
 
 %% atom numbers
 NNa =58000;
-NRb = 30000;
+NRb = 300;
 
 %% scattering length
 a11 = 54.5*a0;
@@ -61,7 +61,7 @@ Ncomponents = 2;
 Type = 'BESP';
 Deltat = 1e-3;
 Stop_time = [];
-Stop_crit = {'Energy',1e-6};
+Stop_crit = {'Energy',1e-4};
 Method = Method_Var3d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
 xmin = -7;
 xmax = 7;
@@ -69,9 +69,9 @@ ymin = -7;
 ymax = 7;
 zmin = -7;
 zmax = 7;
-Nx = 2^6+1;
-Ny = 2^6+1;
-Nz = 2^6+1;
+Nx = 2^5+1;
+Ny = 2^5+1;
+Nz = 2^5+1;
 Geometry3D = Geometry3D_Var3d(xmin,xmax,ymin,ymax,zmin,zmax,Nx,Ny,Nz);
 
 %% Setting the physical problem
@@ -100,7 +100,7 @@ Phi_0 = InitialData_Var3d(Method, Geometry3D, Physics3D, InitialData_Choice);
 save = 1;
 Outputs = OutputsINI_Var3d(Method, save);
 Printing = 1;
-Evo = 5;
+Evo = 100;
 Draw = 1;
 Print = Print_Var3d(Printing,Evo,Draw);
 
