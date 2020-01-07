@@ -3,31 +3,12 @@
 %% GROUND STATE COMPUTATION FOR RB NA BEC MIXTURE IN 3D HARMONIC TRAP
 clear all;
 %% Setting the data
-%% Constants
-%grav=9.8; % For usual gravitation
-%grav = 0; % For free falling
-g1 = 0.0;
-g2 = - g1 * 23/87;
-hbar = 6.62606896E-34/2/pi;
-epsilon0 = 8.854187817E-12; 
-me = 9.10938215E-31;
-e = 1.602176487E-19;
-a0 = 4*pi*epsilon0*hbar^2/(me*e^2);
-AMU = 1.6605402E-27;
-
-%% Atom species
-mNa = 23*AMU;
-mRb = 87*AMU;
-mu = mNa*mRb/(mNa+mRb);
+%% setting constants as structure
+Constants = ConstantRbNa();
 
 %% atom numbers
-NNa =100000;
-NRb = 140000;
-
-%% scattering length
-a11 = 54.5*a0;
-a22 = 100.4*a0;
-a12 = -70*a0;
+NNa =10000;
+NRb = 14000;
 
 %% set trap potential parameters
 omgxNa=2*pi*1e-6;
@@ -55,6 +36,9 @@ vx2=1/2*mRb/mu*omgxRb^2/omgmbar^2;
 %gy2=mRb*g2/sqrt(hbar*omgmbar^3*mu);
 vz2=1/2*mRb/mu*omgzRb^2/omgmbar^2;
 
+g1 = 0.0;
+g2 = - g1 * 23/87;
+
 grad1 = g1*mNa/sqrt(hbar*mu*(omgmbar^3));
 grad2 = g2*mRb/sqrt(hbar*mu*(omgmbar^3));
 
@@ -63,30 +47,6 @@ pol{1,1}=@(x,y,z) vx1*x.^2+ grad1 * y +vz1*z.^2;
 %pol{2,2}=@(x,y,z) vx2*x.^2+vy2*(y+gy2/2/vy2-gy1/2/vy1).^2+vz2*z.^2;
 pol{2,2}=@(x,y,z) vx2*x.^2+ grad2 * y +vz2*z.^2;
 
-%% -----------------------------------------------------------
-
-%% Setting the method and geometry
-%Setting Method
-Computation = 'Ground';
-Ncomponents = 2;
-Type = 'BESP';
-Deltat = 1e-3;
-Stop_time = [];
-Stop_crit = {'Energy',1e-2};
-Method = Method_Var3d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
-
-%Setting Geometry
-limit = 4.5;
-xmin = -limit;
-xmax = limit;
-ymin = -limit;
-ymax = limit;
-zmin = -limit;
-zmax = limit;
-Nx = 2^5+1;
-Ny = 2^5+1;
-Nz = 2^5+1;
-Geometry3D = Geometry3D_Var3d(xmin,xmax,ymin,ymax,zmin,zmax,Nx,Ny,Nz);
 
 %% Setting the physical problem
 Delta = 0.5;
