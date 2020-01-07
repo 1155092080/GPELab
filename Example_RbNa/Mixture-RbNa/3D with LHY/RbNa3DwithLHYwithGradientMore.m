@@ -3,8 +3,6 @@
 %% Constants
 %grav=9.8; % For usual gravitation
 %grav = 0; % For free falling
-g1 = 0.5;
-g2 = - g1 * 23/87;
 hbar = 6.62606896E-34/2/pi;
 epsilon0 = 8.854187817E-12; 
 me = 9.10938215E-31;
@@ -19,7 +17,7 @@ mu = mNa*mRb/(mNa+mRb);
 
 %% atom numbers
 NNa =100000;
-NRb = 140000;
+NRb = 100000;
 
 %% scattering length
 a11 = 54.5*a0;
@@ -27,12 +25,12 @@ a22 = 100.4*a0;
 a12 = -70*a0;
 
 %% set trap potential parameters
-omgxNa=2*pi*1e-6;
-omgyNa=2*pi*1e-6;
-omgzNa=2*pi*1e-6;
-omgxRb=2*pi*1e-6;
-omgyRb=2*pi*1e-6;
-omgzRb=2*pi*1e-6;
+omgxNa=2*pi*1e-0;
+omgyNa=2*pi*1e-0;
+omgzNa=2*pi*1e-0;
+omgxRb=2*pi*1e-0;
+omgyRb=2*pi*1e-0;
+omgzRb=2*pi*1e-0;
 
 %% set characteristic parameters
 %omgmbar = (omgxNa*omgyNa*omgzNa*omgxRb*omgyRb*omgzRb)^(1/6);%characteristic time by trap
@@ -52,6 +50,8 @@ vx2=1/2*mRb/mu*omgxRb^2/omgmbar^2;
 %gy2=mRb*g2/sqrt(hbar*omgmbar^3*mu);
 vz2=1/2*mRb/mu*omgzRb^2/omgmbar^2;
 
+g1 = 0.2;
+g2 = - g1 * (mNa/mRb) * (NNa/NRb);
 grad1 = g1*mNa/sqrt(hbar*mu*(omgmbar^3));
 grad2 = g2*mRb/sqrt(hbar*mu*(omgmbar^3));
 
@@ -69,7 +69,7 @@ Ncomponents = 2;
 Type = 'BESP';
 Deltat = 5e-4;
 Stop_time = [];
-Stop_crit = {'Energy',1e-2};
+Stop_crit = {'Energy',1e-3};
 Method = Method_Var3d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
 
 %Setting Geometry

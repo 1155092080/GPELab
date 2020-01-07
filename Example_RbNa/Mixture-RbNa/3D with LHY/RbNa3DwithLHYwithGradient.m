@@ -6,7 +6,7 @@ clear all;
 %% Constants
 %grav=9.8; % For usual gravitation
 %grav = 0; % For free falling
-g1 = 0.2;
+g1 = 0.0;
 g2 = - g1 * 23/87;
 hbar = 6.62606896E-34/2/pi;
 epsilon0 = 8.854187817E-12; 
