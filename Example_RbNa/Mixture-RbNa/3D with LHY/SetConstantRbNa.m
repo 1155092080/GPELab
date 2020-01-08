@@ -1,9 +1,9 @@
 %% Set physics contants for Rb Na mixture system
 %% Input:
-%%
+%%  a12: Rb Na scattering length
 %% Output:
 %%  Constants: a structure including all constants for simulation
-function [ Constants ] = SetConstantRbNa()
+function [ Constants ] = SetConstantRbNa(a12bar)
 
 %% Basic physics constants
 hbar = 6.626070040E-34/2/pi;    %Planck constant
@@ -30,7 +30,7 @@ mRb = 87*AMU;   %Rb mass
 mu = mNa*mRb/(mNa+mRb); %reduction mass
 a11 = 54.5*a0;  %sodium scattering length
 a22 = 100.4*a0; %Rb scattering length
-a12 = -70*a0;   %Na-Rb scattering length
+a12 = a12bar*a0;   %Na-Rb scattering length
 
 Constants.mNa = mNa;
 Constants.mRb = mRb;

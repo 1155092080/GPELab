@@ -6,6 +6,8 @@
 function [data] = Run(data_0)
     %% data inherits parameters from data_0
     data.Constants = data_0.Constants;
+    data.Character = data_0.Character;
+    data.Number = data_0.Number;
     data.Method = data_0.Method;
     data.Geometry3D = data_0.Geometry3D;
     data.Physics3D = data_0.Physics3D;
