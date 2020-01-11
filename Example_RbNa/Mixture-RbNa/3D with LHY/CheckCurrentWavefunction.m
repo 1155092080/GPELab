@@ -1,0 +1,1 @@
+PlotWavefunction(data);

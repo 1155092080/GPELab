@@ -9,6 +9,7 @@
 
 function Draw_solution3d(FFTPhi, Method, FFTGeometry3D, Figure)
 %% FOR each component drawing the isosurface of modular of wavefunction and phase of them
+
 for n = 1:Method.Ncomponents
     %% Printing the figure of the square of the modulus of wave function
     Figure.label = n; % Number of the figure

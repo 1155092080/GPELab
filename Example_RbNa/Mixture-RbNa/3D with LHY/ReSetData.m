@@ -3,22 +3,27 @@
 %%
 %% Output:
 %%  data_0: is a structure evolving all parameters for run function
-function [ data_0 ] = ReSetData( data, NNa )
+function [ data_0 ] = ReSetData( data, NNa, gNa )
 %% Set Constants, which including all physics parameters
 data_0.Constants = data.Constants;
 %% Set Rb Na number
-NRb = NNa*1.4;
+NRb = NNa*1.43251;
 data_0.Number = SetNumberRbNa(NNa, NRb);
 %% Set method
 deltat = 1E-3;
-energy_crit = 1E-2;
+energy_crit = 1E-3;
 data_0.Method = SetMethodRbNa(deltat, energy_crit);
+
 %% Set Geometry
 data_0.Geometry3D = data.Geometry3D;
+%% Set Geometry
+%halfsize = 7;
+%gridIndex = 5;
+%data_0.Geometry3D = SetGeometryRbNa(halfsize, gridIndex);
+
 %% Set Characteristic parameter
 data_0.Character = data.Character;
 %% Set Physics
-gNa = 0;
 data_0.Physics3D = SetPhysicsRbNa(data_0.Constants, data_0.Character, data_0.Number, gNa, data_0.Method);
 %% Set Phi_0
 data_0.Phi = data.Phi;

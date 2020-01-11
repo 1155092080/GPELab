@@ -9,7 +9,7 @@ function draw_isosurface_3d(phi,Geometry3D,Figure)
 figure(Figure.label); % Number of the figure
 clf(Figure.label); % Clear the figure
 hpatch = patch(isosurface(Geometry3D.X,Geometry3D.Y,Geometry3D.Z,phi,Figure.iso)); % Computing the patch
-isonormals(Geometry3D.X,Geometry3D.Y,Geometry3D.Z,phi,hpatch); % Computing the isosnormal
+isonormals(Geometry3D.X,Geometry3D.Y,Geometry3D.Z,phi,hpatch); % Computing the isonormal
 set(hpatch,'facecolor',Figure.color,'edgecolor','none'); % Setting the color of faces and edges
 daspect(Figure.aspect); % Setting the data aspect ratio
 view(Figure.view); % Setting the angle of view
