@@ -1,5 +1,0 @@
-When number of Na less than 4300, 
-the wavefunction seperates the whole space of simulation
-as we use 
-abar = 2um
-+/- 4.5 grid for each direction

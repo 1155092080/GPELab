@@ -14,16 +14,16 @@ data_0.Number = SetNumberRbNa(NNa, NRb);
 
 %% Set method
 deltat = 1E-3;
-energy_crit = 1E-3;
+energy_crit = 1E-2;
 data_0.Method = SetMethodRbNa(deltat, energy_crit);
 
 %% Set Geometry
-halfsize = 11;
-gridIndex = 5;
+halfsize = 12;
+gridIndex = 6;
 data_0.Geometry3D = SetGeometryRbNa(halfsize, gridIndex);
 
 %% Set Characteristic parameter
-CharaLength = 2E-6;
+CharaLength = 0.59E-6;
 data_0.Character = SetCharacterRbNa(data_0.Constants, CharaLength);
 
 %% Set Physics

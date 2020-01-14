@@ -24,12 +24,12 @@ temp = 0;
 %% plot each component
 for i = 1:Ncom
     plot(1:Outputs.Iterations,Outputs.(item){i});
-    temp = temp + Outputs.(item){i};
+    %temp = temp + Outputs.(item){i};
     hold on;
 end
 
 %% plot total energy
-plot(1:Outputs.Iterations,temp);
+%plot(1:Outputs.Iterations,temp);
 
 end
 
