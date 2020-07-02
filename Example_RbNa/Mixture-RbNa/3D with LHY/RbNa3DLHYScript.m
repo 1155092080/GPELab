@@ -8,13 +8,14 @@ a12bar = -70;
 gNa = 0;
 data_0 = SetData0(NNa, a12bar, gNa);
 data = RunGPE(data_0);
-save(['NNa' num2str(NNa) 'a12' num2str(a12bar)  'mesh6-ori.mat'],'data');
+save(['NNa' num2str(NNa) 'a12' num2str(a12bar)  'mesh5newnew.mat'],'data');
 
 %% 1. loop running for simulation
 for i = 0:0
-    NNa = 5000 - 100*i;
+    NNa = 4350 - 100*i;
     a12bar = -70;
+    gNa=0;
     data_0 = ReSetData(data, NNa, gNa);
     data = RunGPE(data_0);
-    save(['NNa' num2str(NNa) 'a12' num2str(a12bar) 'mesh6.mat'],'data');
+    save(['NNa' num2str(NNa) 'a12' num2str(a12bar) 'mesh5new.mat'],'data');
 end

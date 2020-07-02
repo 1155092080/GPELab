@@ -10,8 +10,8 @@ data_0.Constants = data.Constants;
 NRb = NNa*1.43251;
 data_0.Number = SetNumberRbNa(NNa, NRb);
 %% Set method
-deltat = 1E-3;
-energy_crit = 5E-3;
+deltat = 1E-1;
+energy_crit = 1E-10;
 data_0.Method = SetMethodRbNa(deltat, energy_crit);
 
 %% Set Geometry

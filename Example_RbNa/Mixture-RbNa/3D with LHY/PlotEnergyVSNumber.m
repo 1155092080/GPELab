@@ -1,4 +1,4 @@
-matPath = 'C:\Users\Administrator.WIN-KQNL4VO8QRH\Documents\GitHub\GPELab\Example_RbNa\Mixture-RbNa\3D with LHY\M70a0Mesh5SmallNumber\';
+matPath = 'C:\Users\Administrator.WIN-KQNL4VO8QRH\Documents\GitHub\GPELab\Example_RbNa\Mixture-RbNa\3D with LHY\Simu_Try_1.0\M70a0Mesh5\';
 matDIR = dir([matPath '*.mat']);
 l = length(matDIR);
 
