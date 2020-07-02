@@ -21,7 +21,7 @@ function [ output ] = CheckNorm( phi )
         temp = sum(temp);
     end
     output = temp;
-    %% Directly return summation of all points inVer >  Matlab 2018b
+    %% Directly return summation of all points in Ver >  Matlab 2018b
     %output = sum(phi, 'all');
 end
 

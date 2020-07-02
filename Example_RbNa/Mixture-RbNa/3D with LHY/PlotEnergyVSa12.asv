@@ -2,7 +2,7 @@ matPath = 'C:\Users\Administrator.WIN-KQNL4VO8QRH\Documents\GitHub\GPELab\Exampl
 matDIR = dir([matPath '*.mat']);
 l = length(matDIR);
 
-Num = zeros(l);
+a12 = zeros(l);
 Energy1 = zeros(l);
 Energy2 = zeros(l);
 EnergyTot = zeros(l);
@@ -11,7 +11,7 @@ sigx2 = zeros(l);
 
 for i = 1:l
     tempdata = load([matPath matDIR(i).name]);
-    Num(i) = tempdata.data.Number.Na;
+    a12(i) = tempdata.data.Constants.a12/tempdata.data.Constants.a0;
     Energy1(i) = tempdata.data.Outputs.Energy{1}(end);
     Energy2(i) = tempdata.data.Outputs.Energy{2}(end);
     sigx1(i) = tempdata.data.Outputs.x_rms{1}(end);
@@ -21,14 +21,15 @@ for i = 1:l
     
 end
 
-[Num_sorted, Num_order] = sort(Num);
-Energy1 = Energy1(Num_order);
-Energy2 = Energy2(Num_order);
-EnergyTot = EnergyTot(Num_order);
-sigx1 = sigx1(Num_order);
-sigx2 = sigx2(Num_order);
+[a12_sorted, a12_order] = sort(a12);
+Energy1 = Energy1(a12_order);
+Energy2 = Energy2(a12_order);
+EnergyTot = EnergyTot(a12_order);
+sigx1 = sigx1(a12_order);
+sigx2 = sigx2(a12_order);
 
 figure
-plot(Num_sorted, Energy1, Num_sorted, Energy2, Num_sorted, EnergyTot);
+plot(a12_sorted, Energy1, a12_sorted, Energy2, a12_sorted, EnergyTot);
 hold on;
-plot(Num_sorted, sigx1, Num_sorted, sigx2)
+%% plot size
+plot(a12_sorted, sigx1, a12_sorted, sigx2)

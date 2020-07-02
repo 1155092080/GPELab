@@ -1,4 +1,4 @@
-%% This function is for check energy evoloution throught the whole simuation
+%% This function is for checking energy evoloution throught the whole simuation
 %% Input:
 %%  Outputs: Which is generated from the GPELAB simulation, evolving information of each step of evolution
 %%  item:    the parameter you want to see

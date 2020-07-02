@@ -1,10 +1,10 @@
 %%% This file is a test for calculating Rb Na BEC mixture in 3D harmonic trap
 
 %% GROUND STATE COMPUTATION FOR RB NA BEC MIXTURE IN 3D HARMONIC TRAP
-clear;
+clear all;
 %% Setting the data
 %% Constants
-grav = 9.8; % For usual gravitation
+grav = 0; % For usual gravitation
 hbar = 6.62606896E-34/2/pi;
 epsilon0 = 8.854187817E-12; 
 me = 9.10938215E-31;
@@ -13,8 +13,8 @@ a0 = 4*pi*epsilon0*hbar^2/(me*e^2);
 AMU = 1.6605402E-27;
 
 %% Atom species
-mNa = 22.989*AMU;
-mRb = 86.909*AMU;
+mNa = 23*AMU;
+mRb = 87*AMU;
 mu = mNa*mRb/(mNa+mRb);
 
 %% atom numbers
@@ -24,19 +24,19 @@ NRb = 140000;
 %% scattering length
 a11 = 54.5*a0;
 a22 = 100.4*a0;
-a12 = -60.4*a0;
+a12 = -*a0;
 
 %% set trap potential parameters
-omgxNa=2*pi*110;
-omgyNa=2*pi*110;
-omgzNa=2*pi*110;
-omgxRb=2*pi*100;
-omgyRb=2*pi*100;
-omgzRb=2*pi*100;
+omgxNa=2*pi*1e-6;
+omgyNa=2*pi*1e-6;
+omgzNa=2*pi*1e-6;
+omgxRb=2*pi*1e-6;
+omgyRb=2*pi*1e-6;
+omgzRb=2*pi*1e-6;
 
 %% set characteristic parameters
-omgmbar = (omgxNa*omgyNa*omgzNa*omgxRb*omgyRb*omgzRb)^(1/6);%characteristic time by trap
-%omgmbar = 2*pi*100; % user defined characteristic time
+%omgmbar = (omgxNa*omgyNa*omgzNa*omgxRb*omgyRb*omgzRb)^(1/6);%characteristic time by trap
+omgmbar = 2*pi*100; % user defined characteristic time
 abar = sqrt(hbar/mu/omgmbar);
 tbar = 1/omgmbar;
 
@@ -73,7 +73,7 @@ Stop_crit = {'Energy',1e-3};
 Method = Method_Var3d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
 
 %Setting Geometry
-limit = 8;
+limit = 6;
 xmin = -limit;
 xmax = limit;
 ymin = -limit;
@@ -99,27 +99,21 @@ Beta_coupled = [Beta_11, Beta_12; Beta_21, Beta_22];
 %Gamma and Etta for LHY term
 Gamma_1 =(NNa*a11/abar)*(mu/mNa)^(2/5);
 Gamma_2 = (NRb*a22/abar)*(mu/mRb)^(2/5);
-Gamma = [Gamma_1, Gamma_2]; 
+Gamma_coupled = [Gamma_1, Gamma_2]; 
 Etta_1 = (a11/abar)*(mu/mNa)^(2/5) * 128 * pi^(1/2) / 3;
 Etta_2 = (a22/abar)*(mu/mRb)^(2/5) * 128 * pi^(1/2) / 3;
-Etta = [Etta_1, Etta_2];
-% Definition of Beta, Gamma and Etta, please ref to the mathematica note: "Note_GPELAB_Droplet"
-Nonlinearity = cell(2);
-Nonlinearity{1,1} = @(Phi,X,Y,Z)Beta_coupled(1,1)*abs(Phi{1}).^2 + Beta_coupled(1,2)*abs(Phi{2}).^2 + Etta(1)*(Gamma(1)*abs(Phi{1}).^2 + Gamma(2)*abs(Phi{2}).^2).^(3/2);
-Nonlinearity{2,2} = @(Phi,X,Y,Z)Beta_coupled(2,2)*abs(Phi{2}).^2 + Beta_coupled(2,1)*abs(Phi{1}).^2 + Etta(2)*(Gamma(1)*abs(Phi{1}).^2 + Gamma(2)*abs(Phi{2}).^2).^(3/2);
-Nonlinearity{1,2} = @(Phi,X,Y,Z) 0;
-Nonlinearity{2,1} = @(Phi,X,Y,Z) 0;
+Etta_coupled = [Etta_1, Etta_2];
 
 Physics3D = Physics3D_Var3d(Method, Delta, Beta);
-Physics3D = Dispersion_Var3d(Method, Physics3D, [], SetDispersionRbNa());
+Physics3D = Dispersion_Var3d(Method, Physics3D, [], Dispersion3D);
 Physics3D = Potential_Var3d(Method, Physics3D, pol);
-Physics3D = Nonlinearity_Var3d(Method, Physics3D, Nonlinearity);
+Physics3D = Nonlinearity_Var3d(Method, Physics3D, Coupled_withLHY_3D(Beta_coupled, Gamma_coupled, Etta_coupled));
 
 %% Setting the initial data
 InitialData_Choice = 1;
-%PsPhysics3D = Physics3D;
-%PsPhysics3D.omega = 2*pi*[100 100 100];
-Phi_0 = InitialData_Var3d(Method, Geometry3D, Physics3D, InitialData_Choice);
+PsPhysics3D = Physics3D;
+PsPhysics3D.omega = 2*pi*[100 100 100];
+Phi_0 = InitialData_Var3d(Method, Geometry3D, PsPhysics3D, InitialData_Choice);
 
 %% Setting informations and outputs
 save = 1;

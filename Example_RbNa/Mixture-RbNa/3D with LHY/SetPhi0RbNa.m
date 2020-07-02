@@ -7,8 +7,8 @@
 function [ Phi_0 ] = SetPhi0RbNa( Method, Geometry3D, Physics3D )
 %% Setting the initial data
 InitialData_Choice = 1;
-PsPhysics3D = Physics3D;
-PsPhysics3D.omega = 2*pi*[100 100 100];
-Phi_0 = InitialData_Var3d(Method, Geometry3D, PsPhysics3D, InitialData_Choice);
+%PsPhysics3D = Physics3D;
+%PsPhysics3D.omega = 2*pi*[100 100 100];
+Phi_0 = InitialData_Var3d(Method, Geometry3D, Physics3D, InitialData_Choice);
 end
 

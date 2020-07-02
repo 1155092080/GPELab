@@ -3,15 +3,15 @@
 %%
 %% Output:
 %%  data_0: is a structure evolving all parameters for run function
-function [ data_0 ] = ReSetData( data, NNa, gNa )
+function [ data_0 ] = ReSetData( data, NNa, gNa, a12bar )
 %% Set Constants, which including all physics parameters
-data_0.Constants = data.Constants;
+data_0.Constants = SetConstantRbNa(a12bar);
 %% Set Rb Na number
 NRb = NNa*1.43251;
 data_0.Number = SetNumberRbNa(NNa, NRb);
 %% Set method
-deltat = 1E-1;
-energy_crit = 1E-10;
+deltat = 1E-3;
+energy_crit = 1E-3;
 data_0.Method = SetMethodRbNa(deltat, energy_crit);
 
 %% Set Geometry

@@ -25,8 +25,8 @@ Constants.a0 = a0;
 Constants.AMU = AMU;
 
 %%Rb Na information
-mNa = 23*AMU;   %sodium mass
-mRb = 87*AMU;   %Rb mass
+mNa = 22.989*AMU;   %sodium mass
+mRb = 86.909*AMU;   %Rb mass
 mu = mNa*mRb/(mNa+mRb); %reduction mass
 a11 = 54.5*a0;  %sodium scattering length
 a22 = 100.4*a0; %Rb scattering length

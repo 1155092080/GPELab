@@ -17,14 +17,14 @@ omgmbar = Character.omgmbar;
 abar = Character.abar;
 
 %% use harmonic potential
-if 0
+if 1
     % set trap potential parameters
-    omgxNa=2*pi*1e-6;
-    omgyNa=2*pi*1e-6;
-    omgzNa=2*pi*1e-6;
-    omgxRb=2*pi*1e-6;
-    omgyRb=2*pi*1e-6;
-    omgzRb=2*pi*1e-6;
+    omgxNa=2*pi*100;
+    omgyNa=2*pi*100;
+    omgzNa=2*pi*100;
+    omgxRb=2*pi*100;
+    omgyRb=2*pi*100;
+    omgzRb=2*pi*100;
     
     % Set gradient
     gRb = - gNa * mNa/mRb * NNa/NRb;
@@ -45,7 +45,7 @@ if 0
 end
 
 %% use box potential
-if 1
+if 0
     % set box potential
     XL = -15*10^(-6)/abar;
     XR = 15*10^(-6)/abar;
