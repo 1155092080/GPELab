@@ -6,7 +6,7 @@
 
 function [] = PlotSlice3D( data, component )
 
-slice(data.Geometry3D.X,data.Geometry3D.Y,data.Geometry3D.Z,angle(data.Phi{str2num(component)}),data.Figure.Sy,data.Figure.Sx,data.Figure.Sz); % Computing the slice
+slice(data.Geometry3D.X,data.Geometry3D.Y,data.Geometry3D.Z,angle(data.Phi{str2num(component)}), data.Figure.Sy, data.Figure.Sx, data.Figure.Sz); % Computing the slice
 shading interp; % Setting shading
 colormap(data.Figure.map); % Setting the colormap
 colorbar; % Adding the colorbar

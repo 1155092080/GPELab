@@ -1,6 +1,6 @@
 %% This function is for plotting wavefunction of "data"
 %% Inputs:
-%%  
+%%  data
 %% Outputs:
 %%  Figure_1:
 %%      Isosurface_3D, slicePhase_3D, AxisPlot(X,Y,Z) and ProjectionPlot(YZ, ZX, XY)
