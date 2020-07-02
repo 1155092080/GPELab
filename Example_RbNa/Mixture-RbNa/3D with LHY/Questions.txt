@@ -1,2 +1,0 @@
-Why the program converge more and more slowly at weak bound regime?
-How to improve it?
