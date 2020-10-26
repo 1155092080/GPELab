@@ -13,12 +13,12 @@ NRb = NNa*1.43251;
 data_0.Number = SetNumberRbNa(NNa, NRb);
 
 %% Set method
-deltat = 1E-2;
-energy_crit = 1E-4;
+deltat = 1E-3;
+energy_crit = 1E-3;
 data_0.Method = SetMethodRbNa(deltat, energy_crit);
 
 %% Set Geometry
-halfsize = 6;
+halfsize = 2;
 gridIndex = 5;
 data_0.Geometry3D = SetGeometryRbNa(halfsize, gridIndex);
 

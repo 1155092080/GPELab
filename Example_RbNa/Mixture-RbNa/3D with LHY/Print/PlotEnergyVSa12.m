@@ -1,4 +1,4 @@
-matPath = 'C:\Users\Administrator.WIN-KQNL4VO8QRH\Documents\GitHub\GPELab\Example_RbNa\Mixture-RbNa\3D with LHY\LHYLiquid_Try2.0\';
+matPath = 'C:\Users\Administrator.WIN-KQNL4VO8QRH\Documents\GitHub\GPELab\Example_RbNa\Mixture-RbNa\3D with LHY\';
 matDIR = dir([matPath '*.mat']);
 l = length(matDIR);
 
