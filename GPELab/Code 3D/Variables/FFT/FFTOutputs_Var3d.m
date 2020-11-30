@@ -18,7 +18,11 @@ function [Outputs] = FFTOutputs_Var3d(FFTPhi, Outputs, Method, FFTGeometry3D, FF
 Outputs.Iterations = Outputs.Iterations + 1;
 
 %% Computing and storing outputs
-Energy_tmp = Energy_GPE_Fourier3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D); % Computing the energy of the wave functions
+Potential_energy = Energy_GPE_Fourier3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D, 'Potential_energy'); % Computing the energy of the wave functions
+Nonlinear_energy = Energy_GPE_Fourier3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D, 'Nonlinear_energy'); % Computing the energy of the wave functions
+Transport_energy = Energy_GPE_Fourier3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D, 'Transport_energy'); % Computing the energy of the wave functions
+Dispersion_energy = Energy_GPE_Fourier3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D, 'Dispersion_energy'); % Computing the energy of the wave functions
+Energy_tmp = Energy_GPE_Fourier3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D, 'Total_energy'); % Computing the energy of the wave functions
 Chemical_tmp = chemical_potential3d(FFTPhi, Energy_tmp, Method, FFTGeometry3D, FFTPhysics3D); % Computing the chemical potential of the wave functions
 % IF there are user defined global functions
 if (Outputs.User_compute_global)
@@ -33,6 +37,10 @@ for n = 1:Method.Ncomponents
     Outputs.x_rms{n}(Outputs.Iterations) = alpha_rms3d(abs(FFTPhi{n}),FFTGeometry3D.X,FFTGeometry3D); % Computing of the rms in the x direction
     Outputs.y_rms{n}(Outputs.Iterations) = alpha_rms3d(abs(FFTPhi{n}),FFTGeometry3D.Y,FFTGeometry3D); % Computing of the rms in the y direction
     Outputs.z_rms{n}(Outputs.Iterations) = alpha_rms3d(abs(FFTPhi{n}),FFTGeometry3D.Z,FFTGeometry3D); % Computing of the rms in the z direction
+    Outputs.Potential_energy{n}(Outputs.Iterations) = Potential_energy{n}; % Storing the Potential_energy of the wave function
+    Outputs.Nonlinear_energy{n}(Outputs.Iterations) = Nonlinear_energy{n}; % Storing the Nonlinear_energy of the wave function
+    Outputs.Transport_energy{n}(Outputs.Iterations) = Transport_energy{n}; % Storing the Transport_energy of the wave function
+    Outputs.Dispersion_energy{n}(Outputs.Iterations) = Dispersion_energy{n}; % Storing the Dispersion_energy of the wave function
     Outputs.Energy{n}(Outputs.Iterations) = Energy_tmp{n}; % Storing the energy of the wave function
     Outputs.Chemical_potential{n}(Outputs.Iterations) =  Chemical_tmp{n};  % Storing the chemical potential of the wave function
     Outputs.Angular_momentum{n}(Outputs.Iterations) = Angular_momentum_Fourier3d(FFTPhi{n}, FFTGeometry3D, FFTOperators3D); % Computing the angular momentum of the wave function

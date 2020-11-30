@@ -5,12 +5,13 @@
 %%          FFTGeometry3D: Structure containing variables concerning the geometry of the problem in 3D in the FFT context (structure) (see FFTGeometry3D_Var3d.m)
 %%          FFTPhysics3D: Structure containing variables concerning the physics of the problem in 3D in the FFT context (structure) (see FFTPhysics3D_Var3d.m)
 %%          FFTOperators3D: Structure containing the derivative FFT operators (structure) (see FFTOperators3D_Var3d.m)
+%%          Type: Type of energy (dispersion energy, potential energy, nonlinear energy or Transport energy)
 %% OUTPUT:
 %%          Energy: Energy of the wave functions (cell array)
 %% FUNCTIONS USED:
 %%          L2_norm3d: To integrate the local energy (line 62)
 
-function [Energy] = Energy_GPE_Fourier3d(Phi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D)
+function [Energy] = Energy_GPE_Fourier3d(Phi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D, Type)
 %% Initialization
 Gradx_Phi = cell(1,Method.Ncomponents); % Initializing the variable for the gradient of the components' wave functions in the x direction
 Grady_Phi = cell(1,Method.Ncomponents); % Initializing the variable for the gradient of the components' wave functions in the y direction
@@ -107,5 +108,16 @@ for n = 1:Method.Ncomponents
     %% Computation of the local energy
     Local_energy{n} = Potential_energy + Nonlinear_energy + Transport_energy + Dispersion_energy; % Computing local energy
     %% Integration over the space
-    Energy{n} = FFTGeometry3D.dx*FFTGeometry3D.dy*FFTGeometry3D.dz*sum(sum(sum(Local_energy{n}))); % Integration of the local energy
+    switch Type
+        case 'Potential_energy'
+            Energy{n} = FFTGeometry3D.dx*FFTGeometry3D.dy*FFTGeometry3D.dz*sum(sum(sum(Potential_energy))); % Integration of the local energy
+        case 'Nonlinear_energy'
+            Energy{n} = FFTGeometry3D.dx*FFTGeometry3D.dy*FFTGeometry3D.dz*sum(sum(sum(Nonlinear_energy))); % Integration of the local energy
+        case 'Transport_energy'
+            Energy{n} = FFTGeometry3D.dx*FFTGeometry3D.dy*FFTGeometry3D.dz*sum(sum(sum(Transport_energy))); % Integration of the local energy    
+        case 'Dispersion_energy'
+            Energy{n} = FFTGeometry3D.dx*FFTGeometry3D.dy*FFTGeometry3D.dz*sum(sum(sum(Dispersion_energy))); % Integration of the local energy
+        case 'Total_energy'
+            Energy{n} = FFTGeometry3D.dx*FFTGeometry3D.dy*FFTGeometry3D.dz*sum(sum(sum(Local_energy{n}))); % Integration of the local energy
+    end
 end

@@ -4,12 +4,11 @@
 %%  a12bar: a12 = a12bar*a0 define the Rb-Na interaction strength
 %% Output:
 %%  data_0: is a structure evolving all parameters for run function
-function [ data_0 ] = SetData0(NNa, a12bar, gNa)
+function [ data_0 ] = SetData0(NRb, NNa, a12bar, gNa, gRb, LHY_Q, CharaLength, halfsize)
 %% Set Constants, which including all physics parameters
 data_0.Constants = SetConstantRbNa(a12bar);
 
 %% Set Rb Na number
-NRb = NNa*1.43251;
 data_0.Number = SetNumberRbNa(NNa, NRb);
 
 %% Set method
@@ -18,17 +17,15 @@ energy_crit = 1E-3;
 data_0.Method = SetMethodRbNa(deltat, energy_crit);
 
 %% Set Geometry
-halfsize = 2;
+%halfsize = 5;
 gridIndex = 5;
 data_0.Geometry3D = SetGeometryRbNa(halfsize, gridIndex);
 
 %% Set Characteristic parameter
-CharaLength = 0.59E-6;
 data_0.Character = SetCharacterRbNa(data_0.Constants, CharaLength);
 
 %% Set Physics
-%gNa = 0; %virtual accelaration by outside B-field gradient
-data_0.Physics3D = SetPhysicsRbNa(data_0.Constants, data_0.Character, data_0.Number, gNa, data_0.Method);
+data_0.Physics3D = SetPhysicsRbNa(data_0.Constants, data_0.Character, data_0.Number, gNa, gRb, LHY_Q, data_0.Method);
 
 %% Set Phi_0
 data_0.Phi = SetPhi0RbNa( data_0.Method, data_0.Geometry3D, data_0.Physics3D );

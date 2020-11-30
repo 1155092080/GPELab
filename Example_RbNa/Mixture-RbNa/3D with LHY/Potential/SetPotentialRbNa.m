@@ -3,7 +3,7 @@
 %%
 %% Output:
 %%  
-function [ pol ] = SetPotentialRbNa(Constants, Character, Number, gNa)
+function [ pol ] = SetPotentialRbNa(Constants, Character, Number, gNa, gRb)
 %% atom numbers
 NNa = Number.Na;
 NRb = Number.Rb;
@@ -19,15 +19,15 @@ abar = Character.abar;
 %% use harmonic potential
 if 1
     % set trap potential parameters
-    omgxNa=2*pi*100;
-    omgyNa=2*pi*100;
-    omgzNa=2*pi*100;
-    omgxRb=2*pi*100;
-    omgyRb=2*pi*100;
-    omgzRb=2*pi*100;
+    omgxNa=2*pi*80;
+    omgyNa=2*pi*80;
+    omgzNa=2*pi*80;
+    omgxRb=2*pi*80;
+    omgyRb=2*pi*80;
+    omgzRb=2*pi*80;
     
     % Set gradient
-    gRb = - gNa * mNa/mRb * NNa/NRb;
+    %gRb = - gNa * mNa/mRb * NNa/NRb;
     
     % Set trap potential
     vx1=1/2*mNa/mu*omgxNa^2/omgmbar^2;
@@ -39,9 +39,14 @@ if 1
     gy2=mRb*gRb/sqrt(hbar*omgmbar^3*mu);
     vz2=1/2*mRb/mu*omgzRb^2/omgmbar^2;
     
-    pol = cell(2);
-    pol{1,1}=@(x,y,z) PotentialHarmo( vx1, vy1, vz1, gy1, x, y, z );
-    pol{2,2}=@(x,y,z) PotentialHarmo( vx2, vy2, vz2, gy2, x, y, z );
+    
+    %pol = cell(2);
+    %pol{1,1}=@(x,y,z) PotentialHarmo( vx1, vy1, vz1, gy1, x, y, z );
+    %pol{2,2}=@(x,y,z) PotentialHarmo( vx2, vy2, vz2, gy2, x, y, z );
+    
+    pol=cell(2);
+    pol{1,1}=@(x,y,z) vx1*x.^2+vy1*y.^2+vz1*z.^2;
+    pol{2,2}=@(x,y,z) vx2*x.^2+vy2*(y+gy2/2/vy2-gy1/2/vy1).^2+vz2*z.^2;
 end
 
 %% use box potential

@@ -7,17 +7,17 @@
 
 function [ Character ] = SetCharacterRbNa( Constants, CharaLength )
 
-omgxNa=2*pi*100;
-omgyNa=2*pi*100;
-omgzNa=2*pi*100;
-omgxRb=2*pi*100;
-omgyRb=2*pi*100;
-omgzRb=2*pi*100;
+omgxNa=2*pi*84;
+omgyNa=2*pi*84;
+omgzNa=2*pi*84;
+omgxRb=2*pi*78;
+omgyRb=2*pi*78;
+omgzRb=2*pi*78;
 
-%abar = CharaLength;
-%omgmbar = Constants.hbar/(abar^2*Constants.mu);
-omgmbar = (omgxNa*omgyNa*omgzNa*omgxRb*omgyRb*omgzRb)^(1/6);%characteristic time by trap
-abar = sqrt(Constants.hbar/Constants.mu/omgmbar);
+abar = CharaLength;
+omgmbar = Constants.hbar/(abar^2*Constants.mu);
+%omgmbar = (omgxNa*omgyNa*omgzNa*omgxRb*omgyRb*omgzRb)^(1/6);%characteristic time by trap
+%abar = sqrt(Constants.hbar/Constants.mu/omgmbar);
 tbar = 1/omgmbar;
 
 Character.omgmbar = omgmbar;

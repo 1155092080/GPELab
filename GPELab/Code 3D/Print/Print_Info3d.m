@@ -14,6 +14,10 @@ for n = 1:Method.Ncomponents
     fprintf('x-radius mean square: %8.14f\n',Outputs.x_rms{n}(Outputs.Iterations)); % Printing the rms in the x direction
     fprintf('y-radius mean square: %8.14f\n',Outputs.y_rms{n}(Outputs.Iterations)); % Printing the rms in the y direction
     fprintf('z-radius mean square: %8.14f\n',Outputs.z_rms{n}(Outputs.Iterations)); % Printing the rms in the z direction
+    fprintf('Potential_energy:  %8.14f\n',Outputs.Potential_energy{n}(Outputs.Iterations)); % Printing the energy
+    fprintf('Nonlinear_energy:  %8.14f\n',Outputs.Nonlinear_energy{n}(Outputs.Iterations)); % Printing the energy
+    fprintf('Transport_energy:  %8.14f\n',Outputs.Transport_energy{n}(Outputs.Iterations)); % Printing the energy
+    fprintf('Dispersion_energy:  %8.14f\n',Outputs.Dispersion_energy{n}(Outputs.Iterations)); % Printing the energy
     fprintf('Energy:  %8.14f\n',Outputs.Energy{n}(Outputs.Iterations)); % Printing the energy
     fprintf('Chemical potential:  %8.14f\n',Outputs.Chemical_potential{n}(Outputs.Iterations)); % Printing the chemical potential of the wave function
     fprintf('Angular momentum:  %8.14f\n',Outputs.Angular_momentum{n}(Outputs.Iterations)); % Printing the angular momentum of the wave function    

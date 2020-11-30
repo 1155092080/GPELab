@@ -79,7 +79,7 @@ while (Method.EvolutionCriterion > Method.Stop_crit{2}*Method.Deltat) && (Method
     if strcmp(Method.Stop_crit{1},'MaxNorm')
         Method.EvolutionCriterion = max(Method.LocalEvol); % Computing the global evolution
     elseif strcmp(Method.Stop_crit{1},'Energy')
-        Energy = Energy_GPE_Fourier3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D); % Computing the energy of each wave function
+        Energy = Energy_GPE_Fourier3d(FFTPhi, Method, FFTGeometry3D, FFTPhysics3D, FFTOperators3D, 'Total_energy'); % Computing the energy of each wave function
         if (Method.Iterations == 1)
             Energy_tmp = Addc(Energy,1);
         end
