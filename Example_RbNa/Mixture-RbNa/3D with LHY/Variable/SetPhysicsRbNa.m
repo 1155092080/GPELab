@@ -17,7 +17,7 @@ Physics3D = Dispersion_Var3d(Method, Physics3D, [], SetDispersionRbNa());
 Physics3D = Potential_Var3d(Method, Physics3D, SetPotentialRbNa(Constants, Character, Number, gNa, gRb));
 
 %% Set interaction of Rb Na system by SetInteractionwLHYRbNa function
-Physics3D = Nonlinearity_Var3d(Method, Physics3D, SetInteractionwLHYRbNa(Constants, Character, Number, LHY_Q));
+Physics3D = Nonlinearity_Var3d(Method, Physics3D, SetInteractionwLHYRbNa(Constants, Character, Number, LHY_Q),[],SetInteractionEnergywLHY(Constants, Character, Number, LHY_Q));
 
 end
 

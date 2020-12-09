@@ -12,8 +12,8 @@ data_0.Constants = SetConstantRbNa(a12bar);
 data_0.Number = SetNumberRbNa(NNa, NRb);
 
 %% Set method
-deltat = 1E-3;
-energy_crit = 1E-3;
+deltat = 1E-2;
+energy_crit = 1E-0;
 data_0.Method = SetMethodRbNa(deltat, energy_crit);
 
 %% Set Geometry
