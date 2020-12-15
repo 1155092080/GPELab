@@ -19,12 +19,12 @@ abar = Character.abar;
 %% use harmonic potential
 if 1
     % set trap potential parameters
-    omgxNa=2*pi*100;
-    omgyNa=2*pi*100;
-    omgzNa=2*pi*100;
-    omgxRb=2*pi*100;
-    omgyRb=2*pi*100;
-    omgzRb=2*pi*100;
+    omgxNa=2*pi*80;
+    omgyNa=2*pi*80;
+    omgzNa=2*pi*80;
+    omgxRb=2*pi*80;
+    omgyRb=2*pi*80;
+    omgzRb=2*pi*80;
     
     % Set gradient
     %gRb = - gNa * mNa/mRb * NNa/NRb;
