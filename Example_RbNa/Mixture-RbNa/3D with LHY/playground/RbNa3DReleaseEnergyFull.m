@@ -6,26 +6,25 @@ clear;
 %NRblist = [110182.63059,85280.02915,85468.27006,65262.84152,57344.90925,47884.39399,34775.39011,29531.41512];
 %halfsize = [10,10,10,6,6,6,6,6];
 
-Blist = 349.8:0.1:350.6;  %350.6G to 349.8
-a12list = 76.33*(1-4.255./(Blist-347.648));
-NNalist = 10.^(4:0.3:5.5);
-NRblist = NNalist*1.43;
-halfsize = 6:0.5:10;
 
-for i = 1:length(Blist)  % loop of B
-        a12bar = a12list(i);
-        NNa = NNalist(1);
-        NRb = NRblist(1);   
+a12list = -75:1:-60; % total 16 points
+NNalist = 10.^(4:0.3:6.1); % total 8 points
+NRblist = NNalist*1.43;
+halfsize = 4:0.26:7.9;
+
+for j = 6:length(NNalist)  % loop of number
+        a12bar = a12list(1);
+        NNa = NNalist(j);
+        NRb = NRblist(j);   
         gNa = 0;gRb = 0;
         CharaLength = 1.6E-6;
         LHY_Q = 1;
-        data_0 = SetData0(NRb, NNa, a12bar, gNa, gRb, LHY_Q, CharaLength, halfsize(i));
+        data_0 = SetData0(NRb, NNa, a12bar, gNa, gRb, LHY_Q, CharaLength, halfsize(1));
         data = RunGPE(data_0);
         save([num2str(LHY_Q) 'LHYQ' '-NNa' num2str(NNa) '-NRb' num2str(NRb) '-a12' num2str(a12bar)  '.mat'],'data');
     
-    for j = 2:length(NNalist)  % loop of number
-        NNa = NNalist(j);
-        NRb = NRblist(j);   
+    for i = 2:length(a12list)  % loop of a12
+        a12bar = a12list(i);
         data_0 = SetData0(NRb, NNa, a12bar, gNa, gRb, LHY_Q, CharaLength, halfsize(i));
         data_0.Phi = data.Phi;
         data = RunGPE(data_0);
