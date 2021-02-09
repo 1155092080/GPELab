@@ -1,5 +1,5 @@
 clear;
-matPath = 'C:\Users\Administrator.WIN-KQNL4VO8QRH\Documents\GitHub\GPELab\Example_RbNa\Mixture-RbNa\3D with LHY\playground\Fullsimulation-N-a12\';
+matPath = 'C:\Users\Administrator.WIN-KQNL4VO8QRH\Documents\GitHub\GPELab\Example_RbNa\Mixture-RbNa\3D with LHY\';
 matDIR = dir([matPath '*.mat']);
 l = length(matDIR);
 

@@ -10,8 +10,8 @@ InitialData_Choice = 1;
 
 % add a pseudu-physics3D for intitialization of droplet wavefunction
 % not need for LHY gas
-PsPhysics3D = Physics3D;
-PsPhysics3D.omega = 2*pi*[80 80 80];
+%PsPhysics3D = Physics3D;
+%PsPhysics3D.omega = 2*pi*[80 80 80];
 
 Phi_0 = InitialData_Var3d(Method, Geometry3D, Physics3D, InitialData_Choice);
 end
