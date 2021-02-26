@@ -18,13 +18,13 @@ mRb = 86.909*AMU;
 mu = mNa*mRb/(mNa+mRb);
 
 %% atom numbers
-NNa =100000;
-NRb = 140000;
+NNa = 79432.82347;
+NRb = 113588.93757;
 
 %% scattering length
 a11 = 54.5*a0;
 a22 = 100.4*a0;
-a12 = -60.4*a0;
+a12 = 0*a0;
 
 %% set trap potential parameters
 omgxNa=2*pi*110;
